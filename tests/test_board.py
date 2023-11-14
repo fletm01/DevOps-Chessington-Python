@@ -10,7 +10,7 @@ def test_new_board_has_white_pieces_at_bottom():
     piece = board.get_piece(Square.at(0, 0))
 
     # Assert
-    assert piece.player == Player.WHITE
+    assert piece and piece.player == Player.WHITE
 
 def test_new_board_has_black_pieces_at_top():
 
@@ -21,7 +21,7 @@ def test_new_board_has_black_pieces_at_top():
     piece = board.get_piece(Square.at(7, 0))
 
     # Assert
-    assert piece.player == Player.BLACK
+    assert piece and piece.player == Player.BLACK
 
 def test_pieces_can_be_moved_on_the_board():
 

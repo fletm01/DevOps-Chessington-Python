@@ -21,7 +21,7 @@ class Piece(ABC):
         """
         pass
 
-    def move_to(self, board, new_square):
+    def move_to(self, board: Board, new_square):
         """
         Move this piece to the given square on the board.
         """

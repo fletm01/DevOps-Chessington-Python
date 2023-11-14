@@ -40,7 +40,7 @@ class ImageRepository:
         mapping['empty'] = piece_on_all_backgrounds(None)
         self._images = mapping
 
-    def get_image(self, piece: Piece, background_colour: Colour) -> ImageTk.PhotoImage:
+    def get_image(self, piece: Optional[Piece], background_colour: Colour) -> ImageTk.PhotoImage:
         """Get a GUI-ready image of a piece on the specified background colour"""
         if piece:
             image = self._images[piece.__class__][piece.player][background_colour]

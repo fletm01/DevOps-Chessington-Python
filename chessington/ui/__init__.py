@@ -3,7 +3,7 @@ A GUI chess board that can be interacted with, and pieces moved around on.
 """
 
 import tkinter as tk
-from typing import Iterable
+from typing import Iterable, Optional
 
 from chessington.engine.board import Board, BOARD_SIZE
 from chessington.engine.data import Square
@@ -20,7 +20,7 @@ def get_square_colour(square: Square):
     return Colour.BLACK_SQUARE if square.row % 2 == square.col % 2 else Colour.WHITE_SQUARE
 
 
-def update_square(window: tk.Tk, board: Board, square: Square, colour: Colour = None):
+def update_square(window: tk.Tk, board: Board, square: Square, colour: Optional[Colour] = None):
     """Re-draw the Square, optionally setting a non-standard background colour"""
     piece = board.get_piece(square)
     colour = colour or get_square_colour(square)
@@ -39,7 +39,7 @@ def update_pieces_and_colours(window: tk.Tk, board: Board):
             update_square(window, board, Square(row, col))
 
 
-def highlight_squares(window: tk.Tk, board: Board, from_square: Square, to_squares: Iterable[Square]):
+def highlight_squares(window: tk.Tk, board: Board, from_square: Optional[Square], to_squares: Iterable[Square]):
     """Set background colours on active movement squares"""
     if from_square is not None:
         update_square(window, board, from_square, Colour.FROM_SQUARE)
@@ -69,7 +69,11 @@ def play_game():
 
             # If making an allowed move, then make it
             if from_square is not None and clicked_square in to_squares:
-                board.get_piece(from_square).move_to(board, clicked_square)
+                piece = board.get_piece(from_square)
+                
+                if piece:
+                    piece.move_to(board, clicked_square)
+                
                 from_square, to_squares = None, []
 
             # If clicking on a piece whose turn it is, get its allowed moves
