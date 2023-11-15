@@ -9,8 +9,6 @@ from chessington.engine.pieces import Pawn, Knight, Bishop, Piece, Rook, Queen, 
 
 BOARD_SIZE = 8
 
-
-
 class Board:
     """
     A representation of the chess board, and the pieces on it.
@@ -80,3 +78,6 @@ class Board:
             self.set_piece(to_square, moving_piece)
             self.set_piece(from_square, None)
             self.current_player = self.current_player.opponent()
+
+    def to_json(self):
+        return [ [ piece and piece.to_json() for piece in row ] for row in self.board ]

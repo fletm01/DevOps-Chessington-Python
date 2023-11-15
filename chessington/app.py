@@ -1,3 +1,16 @@
-from chessington.ui import play_game
+import json
+from flask import Flask, render_template
 
-play_game()
+from chessington.engine.board import Board
+
+app = Flask(__name__)
+
+board = Board.at_starting_position()
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+@app.route('/get_board')
+def get_board():
+    return json.dumps(board.to_json())
