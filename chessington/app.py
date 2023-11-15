@@ -11,6 +11,6 @@ board = Board.at_starting_position()
 def index():
     return render_template('index.html')
 
-@app.route('/get_board')
+@app.route('/board-data')
 def get_board():
     return json.dumps(board.to_json())

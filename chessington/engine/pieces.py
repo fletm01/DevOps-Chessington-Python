@@ -17,7 +17,7 @@ class Piece(ABC):
     def to_json(self) -> dict[str, Any]:
         return {
             "piece": self.__class__.__name__,
-            "player": self.player._name_
+            "player": self.player._name_.lower()
         }
 
     @abstractmethod

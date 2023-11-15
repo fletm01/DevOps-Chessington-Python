@@ -1,13 +1,20 @@
 import { Board } from "./board.js"
-import { LoadPieceSvg } from "./piece.js";
+import { getBoardData } from "./client.js";
 import { SVG } from '@svgdotjs/svg.js'
 
-const width = 600, height = 600
 
-var draw = SVG().addTo('body').size(width, height)
+async function main() {
+    const width = 400, height = 400
 
-const board = new Board(draw, height)
+    const draw = SVG().addTo('body').size(width, height)
 
-// LoadPieceSvg(two, group, "bishop", "black")
+    const boardJson = await getBoardData()
 
-// two.update();
+    const board = new Board(draw, height)
+    await board.loadBoardData(boardJson)
+
+    // two.update();
+
+}
+
+main()
