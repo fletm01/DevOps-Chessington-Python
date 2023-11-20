@@ -29,13 +29,14 @@ export class Board {
       for (let j = 0; j <= 7; j++) {
 
         if (!this.squares[i][j]) {
+          // Using an SVG grouping avoids us having to move the square/pieces separately
           const group = this.draw.nested()
-          const isBlackSquare = (i + j) % 2
           const x = j * SQUARE_SIZE
           const y = i * SQUARE_SIZE
           group.move(x, y)
           
-          const rect = await this.buildRect(group, isBlackSquare)
+          const isBlackSquare = (i + j) % 2
+          const rect = this.buildRect(group, isBlackSquare)
           rect.click(this.buildClickSquareCallback(rect, i, j))
           
           this.squares[i][j] = {
@@ -48,6 +49,7 @@ export class Board {
         const squareData = boardJson.board_pieces[i][j]
 
         if (square.piece) {
+          // Check if the piece on the square has changed and needs to be redrawn
           if (squareData && square.piece.pieceType == squareData.piece && square.piece.player == squareData.player) {
             continue
           } else {
@@ -106,7 +108,7 @@ export class Board {
         }
 
         this.toSquares = toSquares
-      } else if(this.selectedSquare) {
+      } else if (this.selectedSquare) {
         for (const square of this.toSquares) {
           if (square.row == i && square.col == j) {
             const boardJson = await postPieceMove(this.selectedSquare[0], this.selectedSquare[1], i, j)
@@ -126,7 +128,7 @@ export class Board {
     return callback
   }
 
-  async buildRect(svgGroup, isBlackSquare) {
+  buildRect(svgGroup, isBlackSquare) {
     const rect = svgGroup.rect(SQUARE_SIZE, SQUARE_SIZE)
 
     if (isBlackSquare) {
@@ -141,6 +143,8 @@ export class Board {
   async buildPiece(svgGroup, piece, player) {
     const svgData = await loadPieceImage(piece, player)
     const pieceSvg = svgGroup.svg(svgData).find('svg')
+
+    // Necessary to center the SVG piece image relative to the square it's on
     pieceSvg.move(2, 0)
     
     return {

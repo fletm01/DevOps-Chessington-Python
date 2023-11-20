@@ -1,5 +1,5 @@
 export async function loadPieceImage(piece, player) {
-    const imageFileName = `${capitalizeFirstLetter(piece)}${capitalizeFirstLetter(player)}.svg`
+    const imageFileName = `${capitaliseFirstLetter(piece)}${capitaliseFirstLetter(player)}.svg`
     const imageLocation = `/static/images/${imageFileName}`
 
     const response = await fetch(imageLocation)
@@ -8,6 +8,6 @@ export async function loadPieceImage(piece, player) {
     return svgData
 }
 
-function capitalizeFirstLetter(string) {
+function capitaliseFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }

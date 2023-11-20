@@ -7,7 +7,7 @@
             "request": "launch",
             "module": "flask",
             "env": {
-                "FLASK_APP": "chessington/app.py",
+                "FLASK_APP": "chessington/ui/app.py",
                 "FLASK_DEBUG": "1"
             },
             "args": [
@@ -17,19 +17,6 @@
             ],
             "jinja": true,
             "justMyCode": true
-        },
-        {
-            "name": "Python: Current File",
-            "type": "python",
-            "request": "launch",
-            "program": "chessington/app.py",
-            "console": "integratedTerminal"
-        },
-        {
-            "name": "Python: Current File",
-            "type": "python",
-            "request": "test",
-            "console": "integratedTerminal"
         },
         {
             "name": "Python: File",

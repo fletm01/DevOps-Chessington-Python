@@ -2,7 +2,6 @@ import { Board } from "./board.js"
 import { getBoardData } from "./client.js";
 import { SVG } from '@svgdotjs/svg.js'
 
-
 async function main() {
     const width = 400, height = 400
 

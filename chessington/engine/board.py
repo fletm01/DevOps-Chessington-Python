@@ -16,7 +16,13 @@ class Board:
 
     def __init__(self, player, board_state):
         self.current_player = player
-        self.board: list[Sequence[Optional[Piece]]] = board_state
+        self.board = board_state
+
+    def to_json(self):
+        return {
+            "current_player": self.current_player._name_.lower(),
+            "board_pieces": [ [ piece and piece.to_json() for piece in row ] for row in self.board ]
+        }
 
     @staticmethod
     def empty():
@@ -27,7 +33,7 @@ class Board:
         return Board(Player.WHITE, Board._create_starting_board())
 
     @staticmethod
-    def _create_empty_board() -> list[list[Optional[Piece]]]:
+    def _create_empty_board() -> list[Sequence[Optional[Piece]]]:
         return [[None] * BOARD_SIZE for _ in range(BOARD_SIZE)]
 
     @staticmethod
@@ -78,9 +84,3 @@ class Board:
             self.set_piece(to_square, moving_piece)
             self.set_piece(from_square, None)
             self.current_player = self.current_player.opponent()
-
-    def to_json(self):
-        return {
-            "current_player": self.current_player._name_.lower(),
-            "board_pieces": [ [ piece and piece.to_json() for piece in row ] for row in self.board ]
-        }
