@@ -8,13 +8,10 @@ async function main() {
 
     const draw = SVG().addTo('body').size(width, height)
 
-    const boardJson = await getBoardData()
-
     const board = new Board(draw, height)
+    
+    const boardJson = await getBoardData()
     await board.loadBoardData(boardJson)
-
-    // two.update();
-
 }
 
 main()

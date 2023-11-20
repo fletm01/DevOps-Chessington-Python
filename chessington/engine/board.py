@@ -15,7 +15,7 @@ class Board:
     """
 
     def __init__(self, player, board_state):
-        self.current_player = Player.WHITE
+        self.current_player = player
         self.board: list[Sequence[Optional[Piece]]] = board_state
 
     @staticmethod
@@ -53,7 +53,7 @@ class Board:
         """
         self.board[square.row][square.col] = piece
 
-    def get_piece(self, square):
+    def get_piece(self, square: Square):
         """
         Retrieves the piece from the given square of the board.
         """
@@ -80,4 +80,7 @@ class Board:
             self.current_player = self.current_player.opponent()
 
     def to_json(self):
-        return [ [ piece and piece.to_json() for piece in row ] for row in self.board ]
+        return {
+            "current_player": self.current_player._name_.lower(),
+            "board_pieces": [ [ piece and piece.to_json() for piece in row ] for row in self.board ]
+        }

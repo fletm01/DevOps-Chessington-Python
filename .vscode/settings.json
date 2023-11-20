@@ -4,5 +4,22 @@
     ],
     "python.testing.unittestEnabled": false,
     "python.testing.nosetestsEnabled": false,
-    "python.testing.pytestEnabled": true
+    "python.testing.pytestEnabled": true,
+    "sqltools.connections": [
+        {
+            "mssqlOptions": {
+                "appName": "SQLTools",
+                "useUTC": true,
+                "encrypt": true
+            },
+            "previewLimit": 50,
+            "server": "dyyfz24u5ptjk.database.windows.net",
+            "port": 1433,
+            "driver": "MSSQL",
+            "name": "billdb",
+            "username": "corndeladmin",
+            "database": "master",
+            "password": "Password01"
+        }
+    ]
 }
