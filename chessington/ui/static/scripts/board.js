@@ -1,5 +1,5 @@
 import { postPieceMove, postPieceSelect } from "./client.js"
-import { loadPieceSvgData } from "./svgLoader.js"
+import { loadPieceImage } from "./image_loader.js"
 
 const PLAYER_BLACK = "black"
 const PLAYER_WHITE = "white"
@@ -139,7 +139,7 @@ export class Board {
   }
 
   async buildPiece(svgGroup, piece, player) {
-    const svgData = await loadPieceSvgData(piece, player)
+    const svgData = await loadPieceImage(piece, player)
     const pieceSvg = svgGroup.svg(svgData).find('svg')
     pieceSvg.move(2, 0)
     

@@ -1,4 +1,4 @@
-export async function loadPieceSvgData(piece, player) {
+export async function loadPieceImage(piece, player) {
     const imageFileName = `${capitalizeFirstLetter(piece)}${capitalizeFirstLetter(player)}.svg`
     const imageLocation = `/static/images/${imageFileName}`
 
