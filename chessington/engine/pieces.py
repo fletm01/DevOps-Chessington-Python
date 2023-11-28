@@ -1,7 +1,7 @@
 from __future__ import annotations
 from abc import ABC, abstractmethod
 from chessington.engine.data import Player, Square
-from typing import TYPE_CHECKING, List
+from typing import TYPE_CHECKING, Any, List
 
 if TYPE_CHECKING:
     from chessington.engine.board import Board
@@ -14,6 +14,12 @@ class Piece(ABC):
     def __init__(self, player: Player):
         self.player = player
 
+    def to_json(self) -> dict[str, Any]:
+        return {
+            "piece": self.__class__.__name__,
+            "player": self.player._name_.lower()
+        }
+
     @abstractmethod
     def get_available_moves(self, board: Board) -> List[Square]:
         """
@@ -21,7 +27,7 @@ class Piece(ABC):
         """
         pass
 
-    def move_to(self, board, new_square):
+    def move_to(self, board: Board, new_square):
         """
         Move this piece to the given square on the board.
         """
