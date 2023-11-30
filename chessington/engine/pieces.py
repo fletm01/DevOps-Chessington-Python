@@ -46,16 +46,26 @@ class Pawn(Piece):
         current_square = board.find_piece(self)
         if self.player == Player.BLACK:
             square_in_front = Square.at(current_square.row - 1, current_square.col)
-            if current_square.row == 6:
-                square_two_in_front = Square.at(current_square.row- 2, current_square.col)
-                return [square_in_front,square_two_in_front]
-            return [square_in_front]
+            piece_on_square_in_front = board.get_piece (square_in_front)
+            if piece_on_square_in_front is None:
+                if current_square.row == 6:
+                    square_two_in_front = Square.at(current_square.row- 2, current_square.col)
+                    piece_on_square_two_in_front = board.get_piece (square_two_in_front)
+                    if piece_on_square_two_in_front is None:
+                        return [square_in_front,square_two_in_front]
+                return [square_in_front]
         else:
             square_in_front = Square.at(current_square.row + 1, current_square.col)
-            if current_square.row == 1:
-                square_two_in_front = Square.at(current_square.row + 2, current_square.col)
-                return [square_in_front, square_two_in_front]
-            return [square_in_front]
+            piece_on_square_in_front = board.get_piece (square_in_front)
+            if piece_on_square_in_front is None:
+                if current_square.row == 1:
+                    square_two_in_front = Square.at(current_square.row + 2, current_square.col)
+                    piece_on_square_two_in_front = board.get_piece (square_two_in_front)
+                    if piece_on_square_two_in_front is None:
+                        return [square_in_front, square_two_in_front]
+                return [square_in_front]
+        return []
+
 
 
 class Knight(Piece):
