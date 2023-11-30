@@ -39,13 +39,22 @@ class Pawn(Piece):
     """
     A class representing a chess pawn.
     """
+    #black_starting_row = 6
+    #white_starting_row = 1
+
     def get_available_moves(self, board) -> List[Square]:
         current_square = board.find_piece(self)
         if self.player == Player.BLACK:
             square_in_front = Square.at(current_square.row - 1, current_square.col)
+            if current_square.row == 6:
+                square_two_in_front = Square.at(current_square.row- 2, current_square.col)
+                return [square_in_front,square_two_in_front]
             return [square_in_front]
         else:
             square_in_front = Square.at(current_square.row + 1, current_square.col)
+            if current_square.row == 1:
+                square_two_in_front = Square.at(current_square.row + 2, current_square.col)
+                return [square_in_front, square_two_in_front]
             return [square_in_front]
 
 
