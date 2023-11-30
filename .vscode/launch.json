@@ -24,6 +24,12 @@
             "request": "launch",
             "program": "${file}",
             "justMyCode": true
+        },
+        {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "test",
+            "console": "integratedTerminal"
         }
     ]
 }
