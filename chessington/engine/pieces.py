@@ -45,6 +45,8 @@ class Pawn(Piece):
     def get_available_moves(self, board) -> List[Square]:
         current_square = board.find_piece(self)
         if self.player == Player.BLACK:
+            if current_square.row ==0:
+                return[]            
             square_in_front = Square.at(current_square.row - 1, current_square.col)
             piece_on_square_in_front = board.get_piece (square_in_front)
             if piece_on_square_in_front is None:
@@ -55,6 +57,8 @@ class Pawn(Piece):
                         return [square_in_front,square_two_in_front]
                 return [square_in_front]
         else:
+            if current_square.row==7:
+                return[]
             square_in_front = Square.at(current_square.row + 1, current_square.col)
             piece_on_square_in_front = board.get_piece (square_in_front)
             if piece_on_square_in_front is None:
