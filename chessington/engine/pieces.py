@@ -49,28 +49,81 @@ class Pawn(Piece):
                 return[]            
             square_in_front = Square.at(current_square.row - 1, current_square.col)
             piece_on_square_in_front = board.get_piece (square_in_front)
+            square_two_in_front = Square.at(current_square.row- 2, current_square.col)
+            piece_on_square_two_in_front = board.get_piece (square_two_in_front)
+            square_diagonal_right = Square.at(current_square.row - 1, current_square.col +1)
+            piece_on_diagonal_right = board.get_piece (square_diagonal_right)
+            square_diagonal_left = Square.at(current_square.row - 1, current_square.col -1)
+            piece_on_diagonal_left = board.get_piece (square_diagonal_left)
+            
             if piece_on_square_in_front is None:
                 if current_square.row == 6:
-                    square_two_in_front = Square.at(current_square.row- 2, current_square.col)
-                    piece_on_square_two_in_front = board.get_piece (square_two_in_front)
                     if piece_on_square_two_in_front is None:
                         return [square_in_front,square_two_in_front]
-                return [square_in_front]
+                elif piece_on_diagonal_right and piece_on_diagonal_left: 
+                    return [square_in_front, square_diagonal_right, square_diagonal_left]
+                else: return [square_in_front]
+            elif piece_on_square_in_front and piece_on_diagonal_right and piece_on_diagonal_left:
+                return [square_diagonal_right, square_diagonal_left]
+            return [] 
+
         else:
             if current_square.row==7:
                 return[]
             square_in_front = Square.at(current_square.row + 1, current_square.col)
             piece_on_square_in_front = board.get_piece (square_in_front)
+            square_two_in_front = Square.at(current_square.row + 2, current_square.col)
+            piece_on_square_two_in_front = board.get_piece (square_two_in_front)
+            square_diagonal_right = Square.at(current_square.row + 1, current_square.col +1)
+            piece_on_diagonal_right = board.get_piece (square_diagonal_right)
+            square_diagonal_left = Square.at(current_square.row + 1, current_square.col -1)
+            piece_on_diagonal_left = board.get_piece (square_diagonal_left)
+
             if piece_on_square_in_front is None:
                 if current_square.row == 1:
-                    square_two_in_front = Square.at(current_square.row + 2, current_square.col)
-                    piece_on_square_two_in_front = board.get_piece (square_two_in_front)
                     if piece_on_square_two_in_front is None:
-                        return [square_in_front, square_two_in_front]
-                return [square_in_front]
+                        return [square_in_front,square_two_in_front]
+                elif piece_on_diagonal_right and piece_on_diagonal_left: 
+                    return [square_in_front, square_diagonal_right, square_diagonal_left]
+                else: return [square_in_front]
+            elif piece_on_diagonal_right and piece_on_square_in_front or piece_on_square_in_front is None:
+                return [square_diagonal_right]   
+            elif piece_on_diagonal_left and piece_on_square_in_front or piece_on_square_in_front is None:
+                return [square_diagonal_left]       
+            elif piece_on_square_in_front and piece_on_diagonal_right and piece_on_diagonal_left:
+                return [square_diagonal_right, square_diagonal_left]
         return []
 
 
+
+
+
+
+
+
+
+
+
+
+        #    if piece_on_square_in_front is None:
+         #       if current_square.row == 1:
+            #        if piece_on_square_two_in_front is None:
+             #           return [square_in_front, square_two_in_front]
+              #  if piece_on_diagonal_right and piece_on_diagonal_left: 
+               #     return [square_diagonal_right, square_diagonal_left]
+                #elif piece_on_diagonal_left:
+                 #   return [square_diagonal_left]
+               # elif piece_on_diagonal_right:
+                #    return [square_diagonal_right]     
+               # return [square_in_front]
+
+
+        # THIS IS EXCLUDING PREVENTING MOVING OFF BOARD FOR DIAGONAL MOVED (BLACK)
+           #  elif current_square.col != 0 and piece_on_diagonal_left:
+           #         return [square_diagonal_left]
+           # elif current_square.col != 7 and piece_on_diagonal_right:
+           #         return [square_diagonal_right]
+           #     return [square_in_front]
 
 class Knight(Piece):
     """
