@@ -39,9 +39,7 @@ class Pawn(Piece):
     """
     A class representing a chess pawn.
     """
-    #black_starting_row = 6
-    #white_starting_row = 1
-
+   
     def get_available_moves(self, board) -> List[Square]:
         current_square = board.find_piece(self)
         if self.player == Player.BLACK:
@@ -53,19 +51,12 @@ class Pawn(Piece):
             piece_on_square_two_in_front = board.get_piece (square_two_in_front)
             square_diagonal_right = Square.at(current_square.row - 1, current_square.col +1)
             piece_on_diagonal_right = board.get_piece (square_diagonal_right)
+            can_take_right = piece_on_diagonal_right and piece_on_diagonal_right.player == Player.WHITE
             square_diagonal_left = Square.at(current_square.row - 1, current_square.col -1)
             piece_on_diagonal_left = board.get_piece (square_diagonal_left)
-            
-            if piece_on_square_in_front is None:
-                if current_square.row == 6:
-                    if piece_on_square_two_in_front is None:
-                        return [square_in_front,square_two_in_front]
-                elif piece_on_diagonal_right and piece_on_diagonal_left: 
-                    return [square_in_front, square_diagonal_right, square_diagonal_left]
-                else: return [square_in_front]
-            elif piece_on_square_in_front and piece_on_diagonal_right and piece_on_diagonal_left:
-                return [square_diagonal_right, square_diagonal_left]
-            return [] 
+            can_take_left = piece_on_diagonal_left and piece_on_diagonal_left.player == Player.WHITE
+            starting_row = 6
+         
 
         else:
             if current_square.row==7:
@@ -76,55 +67,28 @@ class Pawn(Piece):
             piece_on_square_two_in_front = board.get_piece (square_two_in_front)
             square_diagonal_right = Square.at(current_square.row + 1, current_square.col +1)
             piece_on_diagonal_right = board.get_piece (square_diagonal_right)
+            can_take_right = piece_on_diagonal_right and piece_on_diagonal_right.player == Player.BLACK
             square_diagonal_left = Square.at(current_square.row + 1, current_square.col -1)
             piece_on_diagonal_left = board.get_piece (square_diagonal_left)
+            can_take_left = piece_on_diagonal_left and piece_on_diagonal_left.player == Player.BLACK
+            starting_row = 1
+        
+        valid_moves = []
 
-            if piece_on_square_in_front is None:
-                if current_square.row == 1:
-                    if piece_on_square_two_in_front is None:
-                        return [square_in_front,square_two_in_front]
-                elif piece_on_diagonal_right and piece_on_diagonal_left: 
-                    return [square_in_front, square_diagonal_right, square_diagonal_left]
-                else: return [square_in_front]
-            elif piece_on_diagonal_right and piece_on_square_in_front or piece_on_square_in_front is None:
-                return [square_diagonal_right]   
-            elif piece_on_diagonal_left and piece_on_square_in_front or piece_on_square_in_front is None:
-                return [square_diagonal_left]       
-            elif piece_on_square_in_front and piece_on_diagonal_right and piece_on_diagonal_left:
-                return [square_diagonal_right, square_diagonal_left]
-        return []
+        if piece_on_square_in_front is None:
+            valid_moves.append (square_in_front)
+            if current_square.row == starting_row:
+                if piece_on_square_two_in_front is None:
+                    valid_moves.append (square_two_in_front)       
+        if can_take_left:
+            valid_moves.append (square_diagonal_left)
+        if can_take_right:
+            valid_moves.append (square_diagonal_right)
+    
+        return valid_moves
+        
 
-
-
-
-
-
-
-
-
-
-
-
-        #    if piece_on_square_in_front is None:
-         #       if current_square.row == 1:
-            #        if piece_on_square_two_in_front is None:
-             #           return [square_in_front, square_two_in_front]
-              #  if piece_on_diagonal_right and piece_on_diagonal_left: 
-               #     return [square_diagonal_right, square_diagonal_left]
-                #elif piece_on_diagonal_left:
-                 #   return [square_diagonal_left]
-               # elif piece_on_diagonal_right:
-                #    return [square_diagonal_right]     
-               # return [square_in_front]
-
-
-        # THIS IS EXCLUDING PREVENTING MOVING OFF BOARD FOR DIAGONAL MOVED (BLACK)
-           #  elif current_square.col != 0 and piece_on_diagonal_left:
-           #         return [square_diagonal_left]
-           # elif current_square.col != 7 and piece_on_diagonal_right:
-           #         return [square_diagonal_right]
-           #     return [square_in_front]
-
+ 
 class Knight(Piece):
     """
     A class representing a chess knight.
